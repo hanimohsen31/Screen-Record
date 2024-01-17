@@ -52,20 +52,21 @@ export class Recording4Component {
   async startRecording() {
 
     const audioConstraints = {
-      echoCancellation: true,
-      noiseSuppression: true,
+      echoCancellation: false,
+      noiseSuppression: false,
       // sampleRate: 44100, // Adjust this based on your requirements
-      sampleRate: 360000,
-      // desiredSampRate: 360000,
+      sampleRate: 128000,
+      desiredSampRate: 128000,
       // bufferSize: 360000,
-      // bitrate: 360000,
-      // bitsPerSecond: 360000,
+      bitrate: 128000,
+      // bitsPerSecond: 128000,
     };
 
     this.mediaStream = await navigator.mediaDevices.getDisplayMedia({
       audio: audioConstraints,
       video: true,
     });
+
     this.mediaStream$.next(this.mediaStream);
     this.recorder = new RecordRTC(this.mediaStream, { type: 'video' });
     this.recorder.startRecording();
