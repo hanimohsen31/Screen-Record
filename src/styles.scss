@@ -1,30 +1,66 @@
 /* You can add global styles to this file, and also import other style files */
-// .video-container {
-//   width: 500px;
-//   height: 500px;
-//   border: 2px solid black;
-// }
+@font-face {
+	font-family: Centra;
+	src: url('./assets/font/CentraNo2-Bold.ttf');
+	font-weight: 700;
+}
+@font-face {
+	font-family: Centra;
+	src: url('./assets/font/CentraNo2-Medium.ttf');
+	font-weight: 500;
+}
+@font-face {
+	font-family: Centra;
+	src: url('./assets/font/CentraNo2-Book.ttf');
+	font-weight: 400;
+}
 
-// .container {
-//   display: flex;
-//   flex-direction: column;
-// }
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
-video {
+body {
+  font-weight: 400;
+  overflow-x: hidden;
+  position: relative;
+  background-color: #121212 !important;
+  color: #fff !important;
+  font-family: 'Centra', sans-serif !important;
+}
+
+.particles-js-container {
+  position: absolute;
+  height: 100%;
   width: 100%;
-  // height: 500px;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
-.body {
-  // background-color: crimson;
-  min-height: 100vh;
-  min-width: 100vw;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#particles-js {
+  height: 100%;
+  width: 100%;
 }
 
-button {
-  max-width: 300px;
+#stats {
+  display: none;
 }
+
+// .body {
+//   min-height: 100vh;
+//   min-width: 100vw;
+//   overflow: hidden;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// video {
+//   width: 100%;
+// }
+
+// button {
+//   max-width: 300px;
+// }

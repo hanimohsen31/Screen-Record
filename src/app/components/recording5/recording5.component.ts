@@ -2,12 +2,13 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { VideoRecordingService } from './video-recording.service';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../../shared/shared.module';
 
 type RecordingState = 'NONE' | 'RECORDING' | 'RECORDED';
 @Component({
-  selector: 'app-recording4',
+  selector: 'app-recording5',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,SharedModule],
   templateUrl: './recording5.component.html',
   providers: [VideoRecordingService],
 })

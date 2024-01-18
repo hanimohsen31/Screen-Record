@@ -1,22 +1,22 @@
-<div class="container d-flex row">
-  <div class="col-9 d-flex flex-column justify-content-between align-items-center">
+<div class="container d-flex row mx-0">
+  <div class="col-sm-12 col-md-9 col-lg-9 d-flex flex-column justify-content-between align-items-center">
     <!-- <div>Screen record</div> -->
     <video class="rounded overflow-hidden w-100" #videoElement class="video-container" [muted]="true" controls autoplay playsInline>
       <source [src]="videoBlobUrl" />
     </video>
   </div>
 
-  <div class="d-flex flex-column col-3 justify-content-start">
-    <button class="btn btn-primary me-2 mb-3" [disabled]="state !== 'NONE'" (click)="startRecording()">
+  <div class="col-sm-12 col-md-3 d-flex flex-column align-items-center justify-content-start">
+    <button class="btn btn-primary w-100 me-2 mb-3 mt-sm-2 mt-md-0 " [disabled]="state !== 'NONE'" (click)="startRecording()">
       Start Record
     </button>
-    <button class="btn btn-primary me-2 my-3" [disabled]="state !== 'RECORDING'" (click)="stopRecording()">
+    <button class="btn btn-primary w-100 me-2 my-3" [disabled]="state !== 'RECORDING'" (click)="stopRecording()">
       Stop Record
     </button>
-    <button class="btn btn-primary me-2 my-3" [disabled]="state !== 'RECORDED'" (click)="downloadRecording()">
+    <button class="btn btn-primary w-100 me-2 my-3" [disabled]="state !== 'RECORDED'" (click)="downloadRecording()">
       Download Record
     </button>
-    <button class="btn btn-primary me-2 mt-3" [disabled]="state !== 'RECORDED'" (click)="clearRecording()">
+    <button class="btn btn-primary w-100 me-2 mt-3" [disabled]="state !== 'RECORDED'" (click)="clearRecording()">
       Clear record
     </button>
   </div>

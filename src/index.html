@@ -13,8 +13,15 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet" media="screen" href="css/style.css" />
+
+
   </head>
   <body>
+    <div class="particles-js-container">
+      <div id="particles-js"></div>
+    </div>
+    <div class="particles-js-canvas-el"></div>
     <app-root></app-root>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"
@@ -22,5 +29,35 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+
+    <script src="assets/js/particlesJS/allInOne.js"></script>
+
+    <!-- <script src="assets/js/particlesJS/particles.js"></script> -->
+    <!-- <script src="assets/js/particlesJS/app.js"></script> -->
+    <!-- <script src="assets/js/particlesJS/app-run.js"></script> -->
+    <!-- <script src="assets/js/particlesJS/stats.js"></script> -->
+    <!-- <script>
+      var count_particles, stats, update;
+      stats = new Stats();
+      stats.setMode(0);
+      stats.domElement.style.position = "absolute";
+      stats.domElement.style.left = "0px";
+      stats.domElement.style.top = "0px";
+      document.body.appendChild(stats.domElement);
+      count_particles = document.querySelector(".js-count-particles");
+      update = function () {
+        stats.begin();
+        stats.end();
+        if (
+          window.pJSDom[0].pJS.particles &&
+          window.pJSDom[0].pJS.particles.array
+        ) {
+          count_particles.innerText =
+            window.pJSDom[0].pJS.particles.array.length;
+        }
+        requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    </script> -->
   </body>
 </html>

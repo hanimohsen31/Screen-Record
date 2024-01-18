@@ -1,0 +1,67 @@
+<img class="background" src="assets/images/banner-bg.png" alt="" />
+
+<div class="container header mt-5">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-6 left">
+      <button
+        class="main-button px-3 me-3"
+        *ngIf="
+          (buttonsStatus | async)?.NONE || (buttonsStatus | async)?.RECORDED
+        "
+        (click)="startRecording()"
+      >
+        Start Recording
+      </button>
+      <button
+        class="main-button px-3 me-3"
+        *ngIf="(buttonsStatus | async)?.RECORDING"
+        (click)="stopRecording()"
+      >
+        Stop Record
+      </button>
+      <button
+        class="main-button px-3 me-3"
+        *ngIf="(buttonsStatus | async)?.RECORDED"
+        (click)="downloadRecording()"
+      >
+        Download Record
+      </button>
+      <h2 class="text-h1">Start Recording Now ...</h2>
+      <p class="text-p">
+        Welcome to our Screen Recording Hub! Capture every moment with precision
+        and ease. Unleash the power of seamless screen recording and
+        effortlessly share your stories, tutorials, and presentations. Elevate
+        your communication with crystal-clear visuals and immersive
+        demonstrations.
+      </p>
+      <div class="text-button">
+        <span>Start Now</span>
+        <img class="img-arrow" src="assets/images/arrow3.svg" alt="" />
+      </div>
+    </div>
+
+    <div class="col-6 right d-flex justify-content-center">
+      <img
+        *ngIf="!video?.srcObject"
+        class="banner"
+        src="assets/images/header-img.svg"
+        alt=""
+      />
+      <div
+        [class.video-container-hidden]="!video?.srcObject"
+        [class.video-box-shaodw]="video?.srcObject"
+        class="video-container"
+      >
+        <video
+          #videoElement
+          class="video-content"
+          [muted]="true"
+          autoplay
+          playsInline
+        >
+          <source [src]="videoBlobUrl" />
+        </video>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+// export * from '../components/design1/design1.component'
+// export * from '../components/recording1/recording1.component'
+// export * from '../components/recording2/recording2.component'
+// export * from '../components/recording3/recording3.component'
+export * from '../components/recording4/recording4.component'
+// export * from '../components/recording5/recording5.component'
+// export * from '../components/screen-recorder/screen-recorder.component'

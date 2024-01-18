@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { SharedModule } from '../../shared/shared.module';
 
 @Component({
   selector: 'app-recording1',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SharedModule],
   templateUrl: './recording1.component.html',
 })
 export class Recording1Component {
@@ -100,7 +101,6 @@ export class Recording1Component {
           this.anc.href = url;
 
           console.log('Stop called.');
-
         };
       })
       .catch((error) => {

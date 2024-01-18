@@ -1,29 +1,30 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { VideoRecordingService } from './video-recording.service';
+import { VideoRecordingService } from '../../services/video-recording.service';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 
-type RecordingState = 'NONE' | 'RECORDING' | 'RECORDED';
 @Component({
-  selector: 'app-recording2',
+  selector: 'app-header',
   standalone: true,
-  imports: [CommonModule , SharedModule],
-  templateUrl: './recording2.component.html',
-  providers: [VideoRecordingService],
+  imports: [CommonModule, SharedModule],
+  templateUrl: './header.component.html',
+  styleUrl: './header.component.scss',
 })
-export class Recording2Component {
-  @ViewChild('videoElement') videoElement: any;
-  title = 'record-rtc-screen-demo';
-  videoBlobUrl: any = null;
-  video: any;
-  state: RecordingState = 'NONE';
-
+export class HeaderComponent {
   constructor(
     private videoRecordingService: VideoRecordingService,
     private ref: ChangeDetectorRef,
     private sanitizer: DomSanitizer
-  ) {
+  ) {}
+
+  @ViewChild('videoElement') videoElement: any;
+  title = 'record-rtc-screen-demo';
+  videoBlobUrl: any = null;
+  video: any;
+  buttonsStatus = this.videoRecordingService.buttonsStatus$;
+
+  ngOnInit() {
     this.videoRecordingService.getMediaStream().subscribe((data) => {
       this.video.srcObject = data;
       this.ref.detectChanges();
@@ -36,19 +37,27 @@ export class Recording2Component {
   }
 
   ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
     this.video = this.videoElement.nativeElement;
   }
 
   startRecording() {
-    this.videoRecordingService.startRecording();
-    this.state = 'RECORDING';
+    this.clearRecording();
+    this.videoRecordingService.startRecording()
+    this.videoRecordingService.buttonsStatus.next({
+      NONE: false,
+      RECORDING: true,
+      RECORDED: false,
+    });
+
   }
 
   stopRecording() {
     this.videoRecordingService.stopRecording();
-    this.state = 'RECORDED';
+    this.videoRecordingService.buttonsStatus.next({
+      NONE: false,
+      RECORDING: false,
+      RECORDED: true,
+    });
   }
 
   downloadRecording() {
@@ -59,6 +68,10 @@ export class Recording2Component {
     this.videoRecordingService.clearRecording();
     this.video.srcObject = null;
     this.videoBlobUrl = null;
-    this.state = 'NONE';
+    this.videoRecordingService.buttonsStatus.next({
+      NONE: true,
+      RECORDING: false,
+      RECORDED: false,
+    });
   }
 }
