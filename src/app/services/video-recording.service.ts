@@ -54,9 +54,6 @@ export class VideoRecordingService {
     let myObject = this.recorder;
     const originalFunction = myObject.stopRecording;
     myObject.stopRecording = function () {
-      // console.log('-----------------------------');
-      // console.log('myFunction is being fired 1 !');
-      // console.log('-----------------------------');
       originalFunction.apply(this, arguments);
     };
 
@@ -64,8 +61,6 @@ export class VideoRecordingService {
 
     videoTrack.addEventListener('ended', () => {
       this.stopRecording();
-      console.log('Screen sharing stopped');
-      console.log('blob', this.blob);
       this.buttonsStatus.next({
         NONE: false,
         RECORDING: false,

@@ -3,14 +3,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
 import RecordRTC from 'recordrtc';
-import { SharedModule } from '../../shared/shared.module';
 
 type RecordingState = 'NONE' | 'RECORDING' | 'RECORDED';
 
 @Component({
   selector: 'app-recording4',
   standalone: true,
-  imports: [CommonModule,SharedModule],
+  imports: [CommonModule],
   templateUrl: './recording4.component.html',
   providers: [],
 })

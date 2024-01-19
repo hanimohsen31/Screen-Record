@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
 
 @Component({
   selector: 'app-recording1',
   standalone: true,
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule],
   templateUrl: './recording1.component.html',
 })
 export class Recording1Component {
