@@ -1,8 +1,8 @@
 <img class="background" src="assets/images/bg.png" alt=" " />
 
-<div class="container header mt-5">
+<div class="container header">
   <div class="row d-flex justify-content-center align-items-center">
-    <div class="col-6 left">
+    <div class="col-sm-12 col-md-6 left">
       <button
         class="main-button px-3 me-3"
         *ngIf="
@@ -12,6 +12,7 @@
       >
         Start Recording
       </button>
+      <h6 class="alert-mobile">Please Note That this will only work on Desktop Browsers</h6>
       <button
         class="main-button px-3 me-3"
         *ngIf="(buttonsStatus | async)?.RECORDING"
@@ -26,7 +27,7 @@
       >
         Download Record
       </button>
-      <h2 class="text-h1">Start Recording Now ...</h2>
+      <h2 class="text-h2">Start Recording Now ...</h2>
       <p class="text-p">
         Welcome to our Screen Recording Hub! Capture every moment with precision
         and ease. Unleash the power of seamless screen recording and
@@ -40,10 +41,10 @@
       </div>
     </div>
 
-    <div class="col-6 right d-flex justify-content-center">
+    <div class="col-sm-12 col-md-6 right d-flex justify-content-center">
       <img
         *ngIf="!video?.srcObject"
-        class="banner"
+        class="astro"
         src="assets/images/header-img.svg"
         alt=""
       />

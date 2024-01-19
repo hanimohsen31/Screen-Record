@@ -1,3 +1,5 @@
+@import "../../../assets/css/mediaQuery.scss";
+
 .navbar {
   color: white;
 
@@ -5,6 +7,30 @@
     color: white;
     font-size: 40px;
     font-weight: 700;
+
+    .onlyMobile {
+      display: none;
+      margin: 0 !important;
+      height: fit-content;
+      li {
+        display: flex;
+        a {
+          margin: 0 !important;
+        }
+      }
+      @include breakpoints(small) {
+        display: flex;
+      }
+    }
+
+    @include breakpoints(small) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
   }
 
   .navbar-toggler {
@@ -80,6 +106,18 @@
       &.social-li::before {
         transform: scale(1);
       }
+    }
+  }
+
+  .navbar-nav {
+    @include breakpoints(small) {
+      display: flex;
+      flex-direction: row;
+      justify-content: center !important;
+      align-items: center;
+    }
+    .lets-connect {
+      display: none;
     }
   }
 }

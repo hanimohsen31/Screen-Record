@@ -1,7 +1,24 @@
-<nav class="container navbar navbar-expand-lg py-4">
+<nav class="container navbar navbar-expand-sm py-4">
   <div class="container-fluid d-flex justify-content-between">
-    <a class="logo me-auto navbar-brand" href="#">Recorder</a>
-    <button
+    <a class="logo me-auto navbar-brand" href="#">
+      <span>Recorder</span>
+      <ul class="navbar-nav m-0 onlyMobile">
+        <li
+          class="nav-item social-li"
+          (click)="redirectToWebsite('linkedin')"
+        >
+          <a
+            class="nav-link active social-icon-link"
+            aria-current="page"
+            href="https://www.linkedin.com/in/haniomhsen3810/"
+            target="_blank"
+          >
+            <img class="social-icon" src="assets/images/linkedin.svg" alt="" />
+          </a>
+        </li>
+      </ul>
+    </a>
+    <!-- <button
       class="navbar-toggler me-auto"
       type="button"
       data-bs-toggle="collapse"
@@ -11,13 +28,16 @@
       aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
-    </button>
+    </button> -->
     <div
       class="collapse navbar-collapse justify-content-end"
       id="navbarSupportedContent"
     >
       <ul class="navbar-nav ms-3 mb-2 mb-lg-0 d-flex align-items-center">
-        <li class="nav-item social-li me-2" (click)="redirectToWebsite('linkedin')">
+        <li
+          class="nav-item social-li me-2"
+          (click)="redirectToWebsite('linkedin')"
+        >
           <a
             class="nav-link active social-icon-link"
             aria-current="page"
@@ -28,7 +48,10 @@
           </a>
         </li>
 
-        <li class="nav-item social-li me-2" (click)="redirectToWebsite('github')">
+        <li
+          class="nav-item social-li me-2"
+          (click)="redirectToWebsite('github')"
+        >
           <a
             class="nav-link social-icon-link"
             href="https://github.com/hanimohsen31"

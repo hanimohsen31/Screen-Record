@@ -1,0 +1,9 @@
+@import "../assets/css/mediaQuery.scss";
+footer{
+  h6{
+    @include breakpoints(small) {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+}

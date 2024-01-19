@@ -1,0 +1,38 @@
+@mixin breakpoints($point) {
+  @if $point == small {
+    @media (max-width: 767px) {
+      @content;
+    }
+  } @else if $point == medium {
+    @media (min-width: 768px) and (max-width: 991px) {
+      @content;
+    }
+  } @else if $point == large {
+    @media (min-width: 992px) and (max-width: 1199px) {
+      @content;
+    }
+  } @else if $point == xlarge {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  } @else if $point == xxlarge {
+    @media (min-width: 1400px) {
+      @content;
+    }
+  }
+}
+
+.mediaxxxxClass {
+  @include breakpoints(mobile) {
+    font-size: 15px;
+  }
+  @include breakpoints(small) {
+    font-size: 18px;
+  }
+  @include breakpoints(large) {
+    font-size: 20px;
+  }
+  @include breakpoints(xlarge) {
+    font-size: 22px;
+  }
+}
