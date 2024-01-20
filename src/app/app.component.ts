@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { CounterService } from './services/counter.service';
 
 @Component({
   selector: 'app-root',
@@ -13,4 +14,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 })
 export class AppComponent {
   title = 'screen-recorder';
+
+  constructor(private CounterService: CounterService) {}
+
+  ngOnInit() {
+    this.CounterService.handleCounter();
+  }
 }
