@@ -1,16 +1,17 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { VideoRecordingService } from '../../services/video-recording.service';
+import { VideoRecordingService } from '../services/video-recording.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-recorder',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  templateUrl: './recorder.component.html',
+  styleUrl: './recorder.component.scss',
 })
-export class HeaderComponent {
+
+export class RecorderComponent {
   constructor(
     private videoRecordingService: VideoRecordingService,
     private ref: ChangeDetectorRef,
@@ -19,16 +20,18 @@ export class HeaderComponent {
 
   @ViewChild('videoElement') videoElement: any;
   title = 'record-rtc-screen-demo';
-  videoBlobUrl: any = null;
   video: any;
+  videoBlobUrl: any = null;
   buttonsStatus = this.videoRecordingService.buttonsStatus$;
+  isMutedMicrophone = this.videoRecordingService.isMutedMicrophone$;
 
   ngOnInit() {
-    this.videoRecordingService.getMediaStream().subscribe((data) => {
+    this.videoRecordingService.buttonsStatusChange('NONE');
+    this.videoRecordingService.getMediaStream.subscribe((data: any) => {
       this.video.srcObject = data;
       this.ref.detectChanges();
     });
-    this.videoRecordingService.getBlob().subscribe((data) => {
+    this.videoRecordingService.getBlob.subscribe((data: any) => {
       this.videoBlobUrl = this.sanitizer.bypassSecurityTrustUrl(data);
       this.video.srcObject = null;
       this.ref.detectChanges();
@@ -42,20 +45,10 @@ export class HeaderComponent {
   startRecording() {
     this.clearRecording();
     this.videoRecordingService.startRecording();
-    this.videoRecordingService.buttonsStatus.next({
-      NONE: false,
-      RECORDING: true,
-      RECORDED: false,
-    });
   }
 
   stopRecording() {
     this.videoRecordingService.stopRecording();
-    this.videoRecordingService.buttonsStatus.next({
-      NONE: false,
-      RECORDING: false,
-      RECORDED: true,
-    });
   }
 
   downloadRecording() {
@@ -66,11 +59,6 @@ export class HeaderComponent {
     this.videoRecordingService.clearRecording();
     this.video.srcObject = null;
     this.videoBlobUrl = null;
-    this.videoRecordingService.buttonsStatus.next({
-      NONE: true,
-      RECORDING: false,
-      RECORDED: false,
-    });
   }
 
   startNowButton() {
@@ -83,5 +71,10 @@ export class HeaderComponent {
       : curruntStatus.RECORDED
       ? this.startRecording()
       : null;
+  }
+
+  toggleMic() {
+    let curruntStatus = this.videoRecordingService.isMutedMicrophone.getValue();
+    this.videoRecordingService.isMutedMicrophone.next(!curruntStatus);
   }
 }

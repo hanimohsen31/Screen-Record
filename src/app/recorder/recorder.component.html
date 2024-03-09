@@ -12,7 +12,11 @@
       >
         Start Recording
       </button>
-      <h6 class="alert-mobile">Please Note That this will only work on Desktop Browsers</h6>
+
+      <h6 class="alert-mobile">
+        Please Note That this will only work on Desktop Browsers
+      </h6>
+
       <button
         class="main-button px-3 me-3"
         *ngIf="(buttonsStatus | async)?.RECORDING"
@@ -20,6 +24,7 @@
       >
         Stop Record
       </button>
+
       <button
         class="main-button px-3 me-3"
         *ngIf="(buttonsStatus | async)?.RECORDED"
@@ -27,6 +32,30 @@
       >
         Download Record
       </button>
+
+      <!-- <ng-container *ngIf="(buttonsStatus | async)?.CHOOSE">
+        <div class="choose">Sound Input</div>
+        <button class="main-button px-3 me-3" (click)="startRecording()">
+          Device
+        </button>
+        <button class="main-button px-3 me-3" (click)="startRecording('mic')">
+          Device & Mic
+        </button>
+        <div class="disclaimer">
+          It's Recommended to use a Headphone
+          as you may notice some ecco.
+        </div>
+      </ng-container> -->
+
+      <button
+        class="main-button px-3 me-3"
+        [class.muted]="(isMutedMicrophone | async)"
+        *ngIf="(buttonsStatus | async)?.RECORDING"
+        (click)="toggleMic()"
+      >
+        Mic
+      </button>
+
       <h2 class="text-h2">Start Recording Now ...</h2>
       <p class="text-p">
         Welcome to our Screen Recording Hub! Capture every moment with precision
@@ -35,7 +64,7 @@
         your communication with crystal-clear visuals and immersive
         demonstrations.
       </p>
-      <div class="text-button" (click)="startNowButton()" >
+      <div class="text-button" (click)="startNowButton()">
         <span>Start Now</span>
         <img class="img-arrow" src="assets/images/arrow-right.svg" alt="" />
       </div>

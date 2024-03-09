@@ -1,4 +1,4 @@
-@import "../../../assets/css/mediaQuery.scss";
+@import "../../assets/css/mediaQuery.scss";
 
 .background {
   position: absolute;
@@ -44,7 +44,6 @@
       margin-bottom: 16px;
       display: inline-block;
       color: white;
-
       @include breakpoints(small) {
         margin-bottom: 16px;
         width: 100%;
@@ -55,7 +54,24 @@
         font-size: 15px;
       }
     }
-
+    .choose {
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      padding: 8px 22px 8px 0;
+      font-size: 29px;
+      margin-bottom: 16px;
+      display: inline-block;
+      color: white;
+    }
+    .disclaimer {
+      font-size: 14px;
+      max-width: 85%;
+      margin-bottom: 10px;
+      color: #b8b8b8;
+    }
+    .muted{
+      text-decoration: line-through;
+    }
     .alert-mobile {
       display: none;
       @include breakpoints(small) {

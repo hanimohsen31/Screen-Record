@@ -6,77 +6,95 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class VideoRecordingService {
-  mediaStream: any;
   recorder: any;
-  blob: any;
+
+  mediaStream: any;
   mediaStream$ = new Subject<any>();
+  getMediaStream = this.mediaStream$.asObservable();
+
+  audioStream: any;
+  audioStream$ = new Subject<any>();
+
+  isMutedMicrophone = new BehaviorSubject<any>(true);
+  isMutedMicrophone$ = this.isMutedMicrophone.asObservable();
+
+  blob: any;
   blob$ = new Subject<any>();
-  myFunctionEvent: EventEmitter<void> = new EventEmitter<void>();
-  buttonsStatus = new BehaviorSubject({
-    NONE: true,
-    RECORDING: false,
-    RECORDED: false,
-  });
+  getBlob = this.blob$.asObservable();
+
+  buttonsStatus = new BehaviorSubject<any>({});
   buttonsStatus$ = this.buttonsStatus.asObservable();
-
-  getMediaStream() {
-    return this.mediaStream$.asObservable();
+  buttonsStatusChange(prop: string) {
+    let status = {
+      NONE: false,
+      RECORDING: false,
+      RECORDED: false,
+      CHOOSE: false,
+    };
+    if (prop == 'NONE') {
+      status.NONE = true;
+    }
+    if (prop == 'RECORDING') {
+      status.RECORDING = true;
+    }
+    if (prop == 'RECORDED') {
+      status.RECORDED = true;
+    }
+    if (prop == 'CHOOSE') {
+      status.CHOOSE = true;
+    }
+    this.buttonsStatus.next(status);
   }
 
-  getBlob() {
-    return this.blob$.asObservable();
-  }
+  audioConstraints = {
+    echoCancellation: false,
+    noiseSuppression: false,
+    audio: true,
+  };
 
-  startRecording() {
-    this.handleRecording();
-  }
+  videoConstraints = {
+    frameRate: 30,
+    video: true,
+  };
 
-  async handleRecording() {
+  async startRecording() {
     try {
-      const audioConstraints = {
-        echoCancellation: false,
-        noiseSuppression: false,
-        // sampleRate: 44100, // Adjust this based on your requirements
-        sampleRate: 128000,
-        desiredSampRate: 128000,
-        // bufferSize: 360000,
-        bitrate: 128000,
-        // bitsPerSecond: 128000,
-      };
-
-      this.mediaStream = await navigator.mediaDevices.getDisplayMedia({
-        audio: audioConstraints,
-        video: true,
+      // Capture microphone audio
+      this.audioStream = await navigator.mediaDevices.getUserMedia({
+        audio: this.audioConstraints,
+        video: false,
       });
-
+      // Capture screen
+      this.mediaStream = await navigator.mediaDevices.getDisplayMedia({
+        audio: this.audioConstraints,
+        video: this.videoConstraints,
+      });
+      // Create an audio context to ecco mic as device sound
+      const audioContext = new window.AudioContext();
+      const source = audioContext.createMediaStreamSource(this.audioStream);
+      this.isMutedMicrophone$.subscribe({
+        next: (res: any) =>
+          !res ? source.connect(audioContext.destination) : source.disconnect(),
+      });
+      // push to subject
       this.mediaStream$.next(this.mediaStream);
       this.recorder = new RecordRTC(this.mediaStream, { type: 'video' });
-
-      let myObject = this.recorder;
-      const originalFunction = myObject.stopRecording;
-      myObject.stopRecording = function () {
+      let record = this.recorder;
+      const originalFunction = record.stopRecording;
+      record.stopRecording = function () {
         originalFunction.apply(this, arguments);
       };
-
       const videoTrack = this.mediaStream.getVideoTracks()[0];
-
       videoTrack.addEventListener('ended', () => {
+        source.disconnect();
         this.stopRecording();
-        this.buttonsStatus.next({
-          NONE: false,
-          RECORDING: false,
-          RECORDED: true,
-        });
+        this.buttonsStatusChange('RECORDED');
       });
-
+      // start recording
+      this.buttonsStatusChange('RECORDING');
       this.recorder.startRecording();
     } catch (error) {
-      console.error(error);
-      this.buttonsStatus.next({
-        NONE: true,
-        RECORDING: false,
-        RECORDED: false,
-      });
+      this.buttonsStatusChange('NONE');
     }
   }
 
@@ -86,12 +104,14 @@ export class VideoRecordingService {
     }
     this.recorder.stopRecording(() => {
       this.blob = this.recorder.getBlob();
+      console.log(this.blob);
       this.blob$.next(URL.createObjectURL(this.blob));
       this.mediaStream.stop();
       this.recorder.destroy();
       this.mediaStream = null;
       this.recorder = null;
     });
+    this.buttonsStatusChange('RECORDED');
   }
 
   downloadRecording() {
@@ -102,5 +122,6 @@ export class VideoRecordingService {
     this.blob = null;
     this.recorder = null;
     this.mediaStream = null;
+    this.buttonsStatusChange('NONE');
   }
 }
