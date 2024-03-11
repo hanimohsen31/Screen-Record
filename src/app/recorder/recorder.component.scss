@@ -19,6 +19,10 @@
   @include breakpoints(medium) {
     margin-top: 0.5rem;
   }
+  .row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
   .left {
     min-height: 500px;
     @include breakpoints(small) {
@@ -54,14 +58,15 @@
         font-size: 15px;
       }
     }
-    .choose {
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      padding: 8px 22px 8px 0;
-      font-size: 29px;
-      margin-bottom: 16px;
-      display: inline-block;
-      color: white;
+    .resolution-container {
+      height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease-out;
+      margin-top: 10px;
+      &.resolution-options-height {
+        height: 48px;
+        transition: all 0.3s ease-out;
+      }
     }
     .disclaimer {
       font-size: 14px;
@@ -69,7 +74,7 @@
       margin-bottom: 10px;
       color: #b8b8b8;
     }
-    .muted{
+    .muted {
       text-decoration: line-through;
     }
     .alert-mobile {
@@ -83,7 +88,6 @@
         opacity: 0.75;
       }
     }
-
     .text-h2 {
       font-size: 65px;
       font-weight: 700;
@@ -100,7 +104,6 @@
         font-size: 45px;
       }
     }
-
     .text-p {
       color: #b8b8b8;
       font-size: 18px;
@@ -114,7 +117,6 @@
         font-size: 15px;
       }
     }
-
     .text-button {
       color: #fff;
       font-weight: 700;
@@ -130,18 +132,34 @@
       @include breakpoints(medium) {
         margin-top: 1rem;
       }
-    }
-
-    .img-arrow {
-      height: 25px;
-      width: 25px;
-      font-size: 25px;
-      margin-left: 10px;
-      transition: 0.3s ease-in-out;
-      line-height: 1;
+      .img-arrow {
+        height: 25px;
+        width: 25px;
+        font-size: 25px;
+        margin-left: 10px;
+        transition: 0.3s ease-in-out;
+        line-height: 1;
+      }
+      .rotate-arrow{
+        transform: rotate(90deg)
+      }
     }
   }
   .right {
+    display: flex;
+    justify-content: center;
+    img.astro {
+      height: 500px;
+      animation: updown 3s linear infinite;
+      @include breakpoints(small) {
+        height: 300px;
+        width: 300px;
+      }
+      @include breakpoints(medium) {
+        height: 350px;
+        width: 350px;
+      }
+    }
     .video-container {
       border-radius: 50%;
       width: 400px;
@@ -150,41 +168,25 @@
       justify-content: center;
       align-items: center;
       animation: updown 3s linear infinite;
-    }
-
-    .video-box-shaodw {
-      box-shadow: 0px 0px 79px 0px rgb(207 0 207 / 82%);
-    }
-
-    .video-container-hidden {
-      display: none;
-      width: 400px;
-      height: 400px;
-      overflow: hidden;
-      animation: updown 3s linear infinite;
-    }
-
-    .video-content {
-      height: 100%;
-    }
-
-    .video-content-hidden {
-      display: none;
-    }
-
-    .astro {
-      height: 500px;
-      animation: updown 3s linear infinite;
-      @include breakpoints(small) {
-        height: 300px;
-        width: 300px;
+      &.video-box-shaodw {
+        box-shadow: 0px 0px 79px 0px rgb(207 0 207 / 82%);
       }
-
-      @include breakpoints(medium) {
-        height: 350px;
-        width: 350px;
+      &.video-container-hidden {
+        display: none;
+        width: 400px;
+        height: 400px;
+        overflow: hidden;
+        animation: updown 3s linear infinite;
+      }
+      .video-content {
+        height: 100%;
+      }
+      .video-content-hidden {
+        display: none;
       }
     }
+  }
+
   }
 }
 

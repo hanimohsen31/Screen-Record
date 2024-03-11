@@ -1,8 +1,8 @@
 <nav class="container navbar navbar-expand-md py-4">
-  <div class="container-fluid d-flex justify-content-between">
+  <div class="container-fluid">
     <a class="logo me-auto navbar-brand" href="#">
       <span>Recorder</span>
-      <ul class="navbar-nav m-0 onlyMobile">
+      <ul class="navbar-nav onlyMobile m-0">
         <li
           class="nav-item social-li"
           (click)="redirectToWebsite('linkedin')"
@@ -18,22 +18,11 @@
         </li>
       </ul>
     </a>
-    <!-- <button
-      class="navbar-toggler me-auto"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button> -->
     <div
       class="collapse navbar-collapse justify-content-end"
       id="navbarSupportedContent"
     >
-      <ul class="navbar-nav ms-3 mb-2 mb-lg-0 d-flex align-items-center">
+      <ul class="navbar-nav d-flex align-items-center ms-3 mb-2 mb-lg-0">
         <li
           class="nav-item social-li me-2"
           (click)="redirectToWebsite('linkedin')"
@@ -47,7 +36,6 @@
             <img class="social-icon" src="assets/images/linkedin.svg" alt="" />
           </a>
         </li>
-
         <li
           class="nav-item social-li me-2"
           (click)="redirectToWebsite('github')"
@@ -66,7 +54,6 @@
             />
           </a>
         </li>
-
         <li class="nav-item social-li" (click)="redirectToWebsite('behance')">
           <a
             class="nav-link social-icon-link"
@@ -82,7 +69,6 @@
             />
           </a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" href="mailto:hanimohsen31@gmail.com">
             <button class="navbar-text-button">

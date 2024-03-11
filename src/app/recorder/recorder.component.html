@@ -1,21 +1,15 @@
 <img class="background" src="assets/images/bg.png" alt=" " />
 
 <div class="container header">
-  <div class="row d-flex justify-content-center align-items-center">
-    <div class="col-sm-12 col-md-6 left">
+  <div class="row">
+    <div class="left col-sm-12 col-md-6">
       <button
         class="main-button px-3 me-3"
-        *ngIf="
-          (buttonsStatus | async)?.NONE || (buttonsStatus | async)?.RECORDED
-        "
+        *ngIf="(buttonsStatus | async)?.NONE || (buttonsStatus | async)?.RECORDED"
         (click)="startRecording()"
       >
         Start Recording
       </button>
-
-      <h6 class="alert-mobile">
-        Please Note That this will only work on Desktop Browsers
-      </h6>
 
       <button
         class="main-button px-3 me-3"
@@ -33,28 +27,22 @@
         Download Record
       </button>
 
-      <!-- <ng-container *ngIf="(buttonsStatus | async)?.CHOOSE">
-        <div class="choose">Sound Input</div>
-        <button class="main-button px-3 me-3" (click)="startRecording()">
-          Device
-        </button>
-        <button class="main-button px-3 me-3" (click)="startRecording('mic')">
-          Device & Mic
-        </button>
-        <div class="disclaimer">
-          It's Recommended to use a Headphone
-          as you may notice some ecco.
-        </div>
-      </ng-container> -->
+      <h6 class="alert-mobile">
+        Please Note That this will only work on Desktop Browsers
+      </h6>
 
       <button
         class="main-button px-3 me-3"
-        [class.muted]="(isMutedMicrophone | async)"
+        [class.muted]="isMutedMicrophone | async"
         *ngIf="(buttonsStatus | async)?.RECORDING"
         (click)="toggleMic()"
       >
         Mic
       </button>
+
+      <div class="disclaimer" *ngIf="(buttonsStatus | async)?.RECORDING">
+        It's Recommended to use a Headphone as you may notice some ecco.
+      </div>
 
       <h2 class="text-h2">Start Recording Now ...</h2>
       <p class="text-p">
@@ -64,13 +52,27 @@
         your communication with crystal-clear visuals and immersive
         demonstrations.
       </p>
-      <div class="text-button" (click)="startNowButton()">
-        <span>Start Now</span>
+      <div class="text-button" (click)="showResolutionOptions()">
+        <span>Resolution Options</span>
         <img class="img-arrow" src="assets/images/arrow-right.svg" alt="" />
+      </div>
+
+      <div class="resolution-container my-2">
+        <ng-container *ngIf="(buttonsStatus | async)?.NONE || (buttonsStatus | async)?.RECORDED">
+          <button (click)="setResolution(2.5)" class="main-button mb-0 px-3 me-3">Default</button>
+          <button (click)="setResolution(5)" class="main-button mb-0 px-3 me-3">Medium</button>
+          <button (click)="setResolution(10)" class="main-button mb-0 px-3 me-3">Heigh</button>
+          <button (click)="setResolution(20)" class="main-button mb-0 px-3 me-3">Very Heigh</button>
+        </ng-container>
+        <ng-container *ngIf="(buttonsStatus | async)?.RECORDING">
+          <div class="disclaimer">
+            You Can not set Resolution after Recording has started.
+          </div>
+        </ng-container>
       </div>
     </div>
 
-    <div class="col-sm-12 col-md-6 right d-flex justify-content-center">
+    <div class="right col-sm-12 col-md-6">
       <img
         *ngIf="!video?.srcObject"
         class="astro"

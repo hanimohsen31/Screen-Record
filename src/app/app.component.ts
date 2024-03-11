@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CounterService } from './services/counter.service';
 import { RecorderComponent } from './recorder/recorder.component';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,10 @@ export class AppComponent {
   constructor(private CounterService: CounterService) {}
 
   ngOnInit() {
-    this.CounterService.handleCounter();
+    this.CounterService.handleCounter$.pipe(
+      catchError((error) => {
+        throw new Error('Get Counter Error', error);
+      })
+    ).subscribe()
   }
 }

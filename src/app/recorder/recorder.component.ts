@@ -27,11 +27,11 @@ export class RecorderComponent {
 
   ngOnInit() {
     this.videoRecordingService.buttonsStatusChange('NONE');
-    this.videoRecordingService.getMediaStream.subscribe((data: any) => {
+    this.videoRecordingService.getMediaStream$.subscribe((data: any) => {
       this.video.srcObject = data;
       this.ref.detectChanges();
     });
-    this.videoRecordingService.getBlob.subscribe((data: any) => {
+    this.videoRecordingService.getBlob$.subscribe((data: any) => {
       this.videoBlobUrl = this.sanitizer.bypassSecurityTrustUrl(data);
       this.video.srcObject = null;
       this.ref.detectChanges();
@@ -76,5 +76,16 @@ export class RecorderComponent {
   toggleMic() {
     let curruntStatus = this.videoRecordingService.isMutedMicrophone.getValue();
     this.videoRecordingService.isMutedMicrophone.next(!curruntStatus);
+  }
+
+  showResolutionOptions(){
+    document.querySelector(".resolution-container")?.classList.toggle("resolution-options-height")
+    document.querySelector(".img-arrow")?.classList.toggle("rotate-arrow")
+  }
+
+  setResolution(res : number){
+    let resolution = +res * 1_000_000
+    this.videoRecordingService.videoBitsPerSecond.next(resolution)
+    this.showResolutionOptions()
   }
 }

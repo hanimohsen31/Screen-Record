@@ -10,7 +10,7 @@ export class VideoRecordingService {
 
   mediaStream: any;
   mediaStream$ = new Subject<any>();
-  getMediaStream = this.mediaStream$.asObservable();
+  getMediaStream$ = this.mediaStream$.asObservable();
 
   audioStream: any;
   audioStream$ = new Subject<any>();
@@ -20,7 +20,7 @@ export class VideoRecordingService {
 
   blob: any;
   blob$ = new Subject<any>();
-  getBlob = this.blob$.asObservable();
+  getBlob$ = this.blob$.asObservable();
 
   buttonsStatus = new BehaviorSubject<any>({});
   buttonsStatus$ = this.buttonsStatus.asObservable();
@@ -51,6 +51,12 @@ export class VideoRecordingService {
     noiseSuppression: false,
     audio: true,
   };
+  // bits per second (bps).
+  // 10 Mbps (megabits per second)
+  // videoBitsPerSecond: number = 10 * 1_000_000;
+  // default 2_500_000 2.5 Mbps
+  videoBitsPerSecond = new BehaviorSubject(2.5 * 1_000_000);
+  videoBitsPerSecond$ = this.videoBitsPerSecond.asObservable();
 
   videoConstraints = {
     frameRate: 30,
@@ -78,12 +84,22 @@ export class VideoRecordingService {
       });
       // push to subject
       this.mediaStream$.next(this.mediaStream);
-      this.recorder = new RecordRTC(this.mediaStream, { type: 'video' });
+      this.recorder = new RecordRTC(this.mediaStream, {
+        type: 'video',
+        videoBitsPerSecond: this.videoBitsPerSecond.getValue(),
+        // audioBitsPerSecond : 2225
+      });
+      // setTimeout(() => {
+      //   const internalMediaRecorder = this.recorder.getInternalRecorder();
+      //   console.log(internalMediaRecorder);
+      // }, 1000);
+      // handle record stop function by replacing the original function structure
       let record = this.recorder;
-      const originalFunction = record.stopRecording;
+      const stopRecordingFunction = record.stopRecording;
       record.stopRecording = function () {
-        originalFunction.apply(this, arguments);
+        stopRecordingFunction.apply(this, arguments);
       };
+      // addEventListener if share stopped
       const videoTrack = this.mediaStream.getVideoTracks()[0];
       videoTrack.addEventListener('ended', () => {
         source.disconnect();
