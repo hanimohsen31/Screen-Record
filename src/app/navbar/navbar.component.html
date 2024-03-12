@@ -1,74 +1,38 @@
-<nav class="container navbar navbar-expand-md py-4">
+<nav class="navbar container navbar-expand-md py-4">
   <div class="container-fluid">
-    <a class="logo me-auto navbar-brand" href="#">
+    <!-- logo -->
+    <a class="logo navbar-brand me-auto" href="#">
       <span>Recorder</span>
-      <ul class="navbar-nav onlyMobile m-0">
-        <li
-          class="nav-item social-li"
-          (click)="redirectToWebsite('linkedin')"
-        >
-          <a
-            class="nav-link active social-icon-link"
-            aria-current="page"
-            href="https://www.linkedin.com/in/haniomhsen3810/"
-            target="_blank"
-          >
-            <img class="social-icon" src="assets/images/linkedin.svg" alt="" />
+      <ul class="navbar-nav only-mobile m-0">
+        <li class="nav-item social-li" (click)="redirectToWebsite('linkedin')">
+          <a class="nav-link social-icon-link" aria-current="page" href="https://www.linkedin.com/in/haniomhsen3810/" target="_blank">
+            <img src="assets/images/linkedin.svg" alt="linkedin" />
           </a>
         </li>
       </ul>
     </a>
-    <div
-      class="collapse navbar-collapse justify-content-end"
-      id="navbarSupportedContent"
-    >
-      <ul class="navbar-nav d-flex align-items-center ms-3 mb-2 mb-lg-0">
-        <li
-          class="nav-item social-li me-2"
-          (click)="redirectToWebsite('linkedin')"
-        >
-          <a
-            class="nav-link active social-icon-link"
-            aria-current="page"
-            href="https://www.linkedin.com/in/haniomhsen3810/"
-            target="_blank"
-          >
-            <img class="social-icon" src="assets/images/linkedin.svg" alt="" />
+    <!-- links -->
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-3 mb-2 mb-lg-0">
+        <!-- linked-in -->
+        <li class="nav-item social-li me-2" (click)="redirectToWebsite('linkedin')">
+          <a class="nav-link social-icon-link" aria-current="page" href="https://www.linkedin.com/in/haniomhsen3810/" target="_blank">
+            <img src="assets/images/linkedin.svg" alt="linkedin" />
           </a>
         </li>
-        <li
-          class="nav-item social-li me-2"
-          (click)="redirectToWebsite('github')"
-        >
-          <a
-            class="nav-link social-icon-link"
-            href="https://github.com/hanimohsen31"
-            target="_blank"
-          >
-            <img
-              class="social-icon"
-              height="17.5px"
-              width="17.5px"
-              src="assets/images/github.svg"
-              alt=""
-            />
+        <!-- github -->
+        <li class="nav-item social-li me-2" (click)="redirectToWebsite('github')">
+          <a class="nav-link social-icon-link" href="https://github.com/hanimohsen31" target="_blank">
+            <img src="assets/images/github.svg" alt="github" />
           </a>
         </li>
+        <!-- behance -->
         <li class="nav-item social-li" (click)="redirectToWebsite('behance')">
-          <a
-            class="nav-link social-icon-link"
-            href="https://www.behance.net/hanimohsen3810"
-            target="_blank"
-          >
-            <img
-              height="17.5px"
-              width="17.5px"
-              class="social-icon-img"
-              src="assets/images/behance.svg"
-              alt=""
-            />
+          <a class="nav-link social-icon-link" href="https://www.behance.net/hanimohsen3810" target="_blank">
+            <img src="assets/images/behance.svg" alt="behance" />
           </a>
         </li>
+        <!-- mailto -->
         <li class="nav-item">
           <a class="nav-link" href="mailto:hanimohsen31@gmail.com">
             <button class="navbar-text-button">

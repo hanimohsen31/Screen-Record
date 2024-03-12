@@ -1,0 +1,12 @@
+@import "../../assets/css/mediaQuery.scss";
+
+footer{
+  h6{
+    text-align: center;
+    opacity: 50%;
+    @include breakpoints(small) {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+}
