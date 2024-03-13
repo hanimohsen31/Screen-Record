@@ -1,4 +1,2 @@
 User-agent: *
-Disallow: /admin/
-Allow: /
-Sitemap: https://screen-recorder-500.web.app/
+allow: /
