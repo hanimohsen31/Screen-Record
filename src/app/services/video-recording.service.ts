@@ -29,7 +29,7 @@ export class VideoRecordingService {
       NONE: false,
       RECORDING: false,
       RECORDED: false,
-      CHOOSE: false,
+      RES: false,
     };
     if (prop == 'NONE') {
       status.NONE = true;
@@ -40,8 +40,9 @@ export class VideoRecordingService {
     if (prop == 'RECORDED') {
       status.RECORDED = true;
     }
-    if (prop == 'CHOOSE') {
-      status.CHOOSE = true;
+    if (prop == 'RES') {
+      status.NONE = true;
+      status.RES = true;
     }
     this.buttonsStatus.next(status);
   }

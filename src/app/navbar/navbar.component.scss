@@ -33,10 +33,17 @@
       }
     }
     .collapse {
+      display: flex;
+      align-items: center;
       justify-content: flex-end;
-      ul {
+      ul.connect {
         display: flex;
         align-items: center;
+        flex-direction: row;
+        justify-content: flex-end;
+        @include breakpoints(small) {
+          display: none;
+        }
       }
     }
     .navbar-nav {

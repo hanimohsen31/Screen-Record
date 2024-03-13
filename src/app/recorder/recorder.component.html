@@ -3,28 +3,27 @@
 <div class="container">
   <div class="row">
     <div class="left col-sm-12 col-md-6">
-      <button class="main-button" *ngIf="(buttonsStatus | async)?.NONE || (buttonsStatus | async)?.RECORDED" (click)="startRecording()">Start Recording</button>
-      <button class="main-button" *ngIf="(buttonsStatus | async)?.RECORDING" (click)="stopRecording()">Stop Record</button>
-      <button class="main-button" *ngIf="(buttonsStatus | async)?.RECORDED" (click)="downloadRecording()">Download Record</button>
+      <div class="buttons-container">
+        <button class="main-button" *ngIf="(buttonsStatus | async)?.NONE || (buttonsStatus | async)?.RECORDED" (click)="startRecording()">Start Recording</button>
+        <button class="main-button" *ngIf="(buttonsStatus | async)?.RECORDING" (click)="stopRecording()">Stop Record</button>
+        <button class="main-button" *ngIf="(buttonsStatus | async)?.RECORDED" (click)="downloadRecording()">Download Record</button>
+        <button class="main-button" [class.muted]="isMutedMicrophone | async" *ngIf="(buttonsStatus | async)?.RECORDING" (click)="toggleMic()">Mic</button>
+        <button class="main-button resolution-button" *ngIf="(buttonsStatus | async)?.NONE || (buttonsStatus | async)?.RECORDED" (click)="showResolutionOptions()">
+          <svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 17V13.6H20V17H0ZM0 10.2V6.8H20V10.2H10H0ZM0 3.4V0H20V3.4H0Z" fill="white" /></svg>
+        </button>
+        <div class="resolution-container" *ngIf="(buttonsStatus | async)?.NONE || (buttonsStatus | async)?.RECORDED">
+            <button (click)="setResolution(2.5)" class="main-button res-button v2.5 mb-0 curunt-resolution">L</button>
+            <button (click)="setResolution(5)" class="main-button res-button v5 mb-0">M</button>
+            <button (click)="setResolution(10)" class="main-button res-button v10 mb-0">H</button>
+        </div>
+      </div>
       <h6 class="alert-mobile">Please Note That this will only work on Desktop Browsers</h6>
-      <button class="main-button" [class.muted]="isMutedMicrophone | async" *ngIf="(buttonsStatus | async)?.RECORDING" (click)="toggleMic()">Mic</button>
       <div class="disclaimer" *ngIf="(buttonsStatus | async)?.RECORDING">It's Recommended to use a Headphone as you may notice some ecco.</div>
       <h2 class="text-h2">Start Recording Now ...</h2>
       <p class="text-p">Welcome to our Screen Recording Hub! Capture every moment with precision and ease. Unleash the power of seamless screen recording and effortlessly share your stories, tutorials, and presentations. Elevate your communication with crystal-clear visuals and immersive demonstrations.</p>
-      <div class="text-button" (click)="showResolutionOptions()">
-        <span>Resolution Options</span>
+      <div class="text-button" (click)="startRecording()">
+        <span>Start Now</span>
         <img class="img-arrow" src="assets/images/arrow-right.svg" alt="" />
-      </div>
-      <div class="resolution-container my-2">
-        <ng-container *ngIf="(buttonsStatus | async)?.NONE || (buttonsStatus | async)?.RECORDED">
-          <button (click)="setResolution(2.5)" class="main-button mb-0">Default</button>
-          <button (click)="setResolution(5)" class="main-button mb-0">Medium</button>
-          <button (click)="setResolution(10)" class="main-button mb-0">Heigh</button>
-          <button (click)="setResolution(20)" class="main-button mb-0">Very Heigh</button>
-        </ng-container>
-        <ng-container *ngIf="(buttonsStatus | async)?.RECORDING">
-          <div class="disclaimer">You Can not set Resolution after Recording has started.</div>
-        </ng-container>
       </div>
     </div>
     <div class="right col-sm-12 col-md-6">

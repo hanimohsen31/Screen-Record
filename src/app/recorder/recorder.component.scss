@@ -25,6 +25,9 @@
     align-items: center;
     .left {
       min-height: 500px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
       @include breakpoints(small) {
         display: flex;
         flex-direction: column;
@@ -35,6 +38,10 @@
         min-height: 350px;
       }
       .main-button {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        height: 48px;
         font-weight: 700;
         letter-spacing: 0.8px;
         padding: 8px 10px;
@@ -44,8 +51,8 @@
         margin-inline-end: 1rem;
         padding-left: 1rem;
         padding-right: 1rem;
-        display: inline-block;
         color: white;
+        margin-bottom: 12px;
         @include breakpoints(small) {
           width: 100%;
           margin-left: 0 !important;
@@ -54,6 +61,10 @@
         @include breakpoints(medium) {
           font-size: 15px;
         }
+      }
+      .buttons-container{
+        display: flex;
+        flex-wrap: wrap;
       }
       .disclaimer {
         font-size: 14px;
@@ -133,15 +144,34 @@
           transform: rotate(90deg);
         }
       }
+      .resolution-button {
+        @include breakpoints(small) {
+          display: none;
+        }
+      }
       .resolution-container {
-        height: 0;
+        display: inline-flex;
+        width: 0;
         overflow: hidden;
         transition: all 0.3s ease-out;
-        margin-top: 10px;
-        &.resolution-options-height {
-          height: 48px;
-          transition: all 0.3s ease-out;
+        @include breakpoints(medium) {
+          width: 0;
+          height: 0;
+          display: flex;
         }
+        &.resolution-options-height {
+          width: 200px;
+          transition: all 0.3s ease-out;
+          @include breakpoints(medium) {
+            height: 48px;
+            .main-button{
+              height: 42px;
+            }
+          }
+        }
+      }
+      .curunt-resolution{
+        background-color: #007fffcc;
       }
     }
     .right {
