@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="right col-sm-12 col-md-6">
-      <img *ngIf="!video?.srcObject" class="astro" src="assets/images/header-img.svg" alt="" />
+      <img *ngIf="!video?.srcObject" class="astro" src="assets/images/header-img.svg" alt="astro"/>
       <div [class.video-container-hidden]="!video?.srcObject" [class.video-box-shaodw]="video?.srcObject" class="video-container">
         <video #videoElement class="video-content" [muted]="true" autoplay playsInline>
           <source [src]="videoBlobUrl" />
