@@ -70,7 +70,6 @@ export class RecorderComponent {
 
   showResolutionOptions() {
     document.querySelector('.resolution-container')?.classList.toggle('resolution-options-height');
-    document.querySelector('.img-arrow')?.classList.toggle('rotate-arrow');
   }
 
   setResolution(res: number) {
