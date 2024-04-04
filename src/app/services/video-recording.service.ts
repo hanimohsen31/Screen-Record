@@ -124,8 +124,10 @@ export class VideoRecordingService {
       console.log(this.blob);
       this.blob$.next(URL.createObjectURL(this.blob));
       this.mediaStream.stop();
+      this.audioStream.stop();
       this.recorder.destroy();
       this.mediaStream = null;
+      this.audioStream = null;
       this.recorder = null;
     });
     this.buttonsStatusChange('RECORDED');
