@@ -30,6 +30,7 @@ export class VideoRecordingService {
       RECORDING: false,
       RECORDED: false,
       RES: false,
+      MIC: false,
     };
     if (prop == 'NONE') {
       status.NONE = true;
@@ -40,10 +41,15 @@ export class VideoRecordingService {
     if (prop == 'RECORDED') {
       status.RECORDED = true;
     }
+    if (prop == 'MIC') {
+      status.RECORDING = true;
+      status.MIC = true;
+    }
     if (prop == 'RES') {
       status.NONE = true;
       status.RES = true;
     }
+    console.log(status);
     this.buttonsStatus.next(status);
   }
 
@@ -64,7 +70,7 @@ export class VideoRecordingService {
     video: true,
   };
 
-  async startRecording() {
+  async startRecording(options?: string) {
     try {
       // Capture microphone audio
       this.audioStream = await navigator.mediaDevices.getUserMedia({
@@ -73,16 +79,25 @@ export class VideoRecordingService {
       });
       // Capture screen
       this.mediaStream = await navigator.mediaDevices.getDisplayMedia({
-        audio: this.audioConstraints,
+        audio: options !== 'mic' ? this.audioConstraints : false,
         video: this.videoConstraints,
       });
       // Create an audio context to ecco mic as device sound
       const audioContext = new window.AudioContext();
-      const source = audioContext.createMediaStreamSource(this.audioStream);
-      this.isMutedMicrophone$.subscribe({
-        next: (res: any) =>
-          !res ? source.connect(audioContext.destination) : source.disconnect(),
-      });
+      let source: any = options !== 'mic' ? audioContext.createMediaStreamSource(this.audioStream) : null;
+      if (options !== 'mic') {
+        this.isMutedMicrophone$.subscribe({
+          next: (res: any) => (!res ? source.connect(audioContext.destination) : source.disconnect()),
+        });
+      }
+      // condtition for mic only
+      if (options === 'mic') {
+        this.buttonsStatusChange('MIC');
+        if (this.audioStream && this.audioStream.getAudioTracks().length > 0) {
+          const audioTrack = this.audioStream.getAudioTracks()[0];
+          this.mediaStream.addTrack(audioTrack);
+        }
+      }
       // push to subject
       this.mediaStream$.next(this.mediaStream);
       this.recorder = new RecordRTC(this.mediaStream, {
@@ -103,12 +118,12 @@ export class VideoRecordingService {
       // addEventListener if share stopped
       const videoTrack = this.mediaStream.getVideoTracks()[0];
       videoTrack.addEventListener('ended', () => {
-        source.disconnect();
+        source?.disconnect();
         this.stopRecording();
         this.buttonsStatusChange('RECORDED');
       });
       // start recording
-      this.buttonsStatusChange('RECORDING');
+      options === 'mic' ? this.buttonsStatusChange('MIC') : this.buttonsStatusChange('RECORDING');
       this.recorder.startRecording();
     } catch (error) {
       this.buttonsStatusChange('NONE');
@@ -126,9 +141,9 @@ export class VideoRecordingService {
       this.mediaStream.stop();
       this.audioStream.stop();
       this.recorder.destroy();
+      this.recorder = null;
       this.mediaStream = null;
       this.audioStream = null;
-      this.recorder = null;
     });
     this.buttonsStatusChange('RECORDED');
   }

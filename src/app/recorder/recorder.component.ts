@@ -36,9 +36,9 @@ export class RecorderComponent {
     this.video = this.videoElement.nativeElement;
   }
 
-  startRecording() {
+  startRecording(options?:string) {
     this.clearRecording();
-    this.videoRecordingService.startRecording();
+    this.videoRecordingService.startRecording(options);
   }
 
   stopRecording() {
@@ -53,14 +53,6 @@ export class RecorderComponent {
     this.videoRecordingService.clearRecording();
     this.video.srcObject = null;
     this.videoBlobUrl = null;
-  }
-
-  startNowButton() {
-    let curruntStatus: any;
-    this.buttonsStatus.subscribe({
-      next: (res: any) => (curruntStatus = res),
-    });
-    curruntStatus.NONE ? this.startRecording() : curruntStatus.RECORDED ? this.startRecording() : null;
   }
 
   toggleMic() {

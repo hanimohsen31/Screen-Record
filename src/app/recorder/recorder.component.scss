@@ -144,6 +144,15 @@
           transform: rotate(90deg);
         }
       }
+      .start-now{
+        width: fit-content;
+      }
+      .hint{
+        display: flex;
+        width: fit-content;
+        opacity: 0.5;
+        font-size: 14px;
+      }
       .resolution-button {
         @include breakpoints(small) {
           display: none;
